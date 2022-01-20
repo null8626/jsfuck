@@ -1,4 +1,4 @@
-# jsfuck.h
+# libjsfuck
 JSFuck obfuscator written in ANSI C. For more info/context, visit [www.jsfuck.com](http://www.jsfuck.com).
 
 ### Build
