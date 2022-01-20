@@ -2,9 +2,13 @@
 JSFuck obfuscator written in ANSI C. For more info/context, visit [www.jsfuck.com](http://www.jsfuck.com).
 
 ### Build
-- MinGW/GCC
+- GCC
 ```
 make
+```
+- MinGW
+```
+make.exe OS=WIN
 ```
 - MSVC
 ```
