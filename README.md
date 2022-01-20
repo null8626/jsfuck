@@ -8,7 +8,7 @@ make
 ```
 - MinGW
 ```
-make.exe OS=WIN
+make OS=WIN
 ```
 - MSVC
 ```
