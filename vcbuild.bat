@@ -11,4 +11,6 @@ lib.exe /nologo /OUT:..\jsfuck.lib *.obj
 del /s /q *.obj > nul
 cd ..
 
+cl.exe /nologo /O2 /I .\include .\transpiler\*.c .\jsfuck.lib /Fe"jsfuck.exe"
+
 endlocal

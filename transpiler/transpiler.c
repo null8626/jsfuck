@@ -20,7 +20,7 @@ int main(int argc, char ** argv) {
         return 1;
     }
     
-    printf(" read %d bytes.\ntranspiling...", f->file_size);
+    printf(" read %lld bytes.\ntranspiling...", f->file_size);
 
     uint64_t transpiled_size;
     char * transpiled = jsfuck(f->contents, f->file_size, &transpiled_size);
@@ -28,8 +28,7 @@ int main(int argc, char ** argv) {
     printf(" done.\n");
     
     char o_fn[255];
-    strcpy(o_fn, "jsfucked-", 9);
-    o_fn[strcpy(o_fn + 9, argv[1], input_fn_l)] = 0;
+    o_fn[sprintf(o_fn, "jsfucked-%s", argv[1])] = 0;
     
     FILE * of = fopen(o_fn, "w");
     
@@ -37,7 +36,7 @@ int main(int argc, char ** argv) {
     fputs(transpiled, of);
     fputs(JSFUCK_FOOTER, of);
     
-    printf("wrote %d bytes to %s.\n", 776 + transpiled_size, o_fn);
+    printf("wrote %lld bytes to %s.\n", 776 + transpiled_size, o_fn);
     
     free_file(f);
     free(transpiled);
