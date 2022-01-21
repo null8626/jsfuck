@@ -11,7 +11,6 @@ typedef struct {
         const uint64_t length;
     } input;
     
-    char truncated[10];
     uint64_t index;
 } jsfuck_tokenizer_t;
 
