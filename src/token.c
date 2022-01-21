@@ -16,17 +16,14 @@ static uint8_t _token_parse(jsfuck_tokenizer_t * ptr, const char * keyword, cons
     if ((ptr->input.length - ptr->index) < keyword_len)
         return 0;
     
-    memcpy(ptr->truncated, ptr->input.input + ptr->index, keyword_len);
-    
     uint8_t i = 0;
-    for (; i < keyword_len; i++) {
-        if (ptr->truncated[i] != keyword[i]) {
+    for (0; i < keyword_len; i++) {
+        if (*(ptr->input.input + ptr->index + i) != keyword[i]) {
             return 0;
         }
     }
     
     ptr->index += keyword_len;
-    
     return 1;
 }
 
