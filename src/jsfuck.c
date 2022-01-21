@@ -13,9 +13,6 @@ char * jsfuck(const char * code, const uint64_t length, uint64_t * size) {
             JSFUCK_PADDING, JSFUCK_PADDING
         }, {
             code, length
-        }, {
-            0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0
         }, 0 
     };
     
