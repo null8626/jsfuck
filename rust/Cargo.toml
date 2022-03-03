@@ -2,6 +2,13 @@
 name = "jsfuck"
 version = "0.1.0"
 edition = "2021"
+license = "MIT"
+authors = ["null <vierofernando9@gmail.com>"]
+readme = "../README.md"
+keywords = ["jsfuck", "obfuscator", "transpiler"]
+repository = "https://github.com/vierofernando/libjsfuck"
+homepage = "http://www.jsfuck.com"
+description = "A JSFuck obfuscator written in Rust."
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
