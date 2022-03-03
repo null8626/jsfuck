@@ -1,7 +1,12 @@
 # jsfuck
 A quick and simple JSFuck obfuscator for Rust. For more info/context, visit [www.jsfuck.com](http://www.jsfuck.com).
 
-## Quick example:
+The library only exports one single function.
+```rs
+pub fn jsfuck(input: String) -> String { /* ... */ }
+```
+
+## Example
 ```rs
 use jsfuck::jsfuck;
 
@@ -13,25 +18,5 @@ fn main() {
     
     // warning: huge string incoming!
     println!("{}", jsfuck(String::from("Hello, World!")));
-}
-```
-
-## Use the tokenizer!
-```rs
-use jsfuck::token::Tokenizer;
-
-fn main() {
-    let my_input = String::from("Hello!");
-    let mut jsfuck = Tokenizer::new(&my_input);
-
-    // parse it and print the obfuscated output
-    println!("{}", jsfuck.parse());
-    
-    // reuse this instance with another string
-    let another_input = String::from("Goodbye!");
-    jsfuck.change_with(&another_input);
-    
-    // this should output the jsfucked version of "Goodbye!"
-    println!("{}", jsfuck.parse());
 }
 ```
