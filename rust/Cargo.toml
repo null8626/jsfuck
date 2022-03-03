@@ -1,10 +1,10 @@
 [package]
 name = "jsfuck"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2021"
 license = "MIT"
 authors = ["null <vierofernando9@gmail.com>"]
-readme = "../README.md"
+readme = "README.md"
 keywords = ["jsfuck", "obfuscator", "transpiler"]
 repository = "https://github.com/vierofernando/libjsfuck"
 homepage = "http://www.jsfuck.com"

@@ -1,4 +1,4 @@
-mod token;
+pub mod token;
 use token::Tokenizer;
 
 pub fn jsfuck(input: String) -> String {

@@ -26,12 +26,18 @@ pub struct Tokenizer<'a> {
 }
 
 impl<'a> Tokenizer<'a> {
-    pub fn new(input: &'a String) -> Tokenizer<'a> {
+    pub fn new(input: &'a String) -> Tokenizer {
         Tokenizer {
             input: input,
             output: String::new(),
             index: 0
         }
+    }
+    
+    pub fn change_with(&mut self, input: &'a String) {
+        self.input = input;
+        self.index = 0;
+        self.output.clear();
     }
     
     fn is_token(&mut self, token: &str) -> bool {
