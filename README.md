@@ -4,6 +4,7 @@ JSFuck obfuscator for C/C++ and Rust. For more info/context, visit [www.jsfuck.c
 ### Building
 <details>
 <summary>C/C++ library</summary>
+
 - GCC
 ```
 make
@@ -16,18 +17,22 @@ make OS=WIN
 ```
 .\vcbuild.bat
 ```
+
 </details>
 
 <details>
 <summary>Rust library</summary>
+
 ```
 cargo build
 ```
+
 </details>
 
 ### Library Usage
 <details>
 <summary>C/C++ library</summary>
+
 ```c
 #include <jsfuck.h>
 #include <stdlib.h>
@@ -52,6 +57,7 @@ Tip: You can use `NULL` for the third argument if determining output size is not
 
 <details>
 <summary>Rust library</summary>
+
 ```rs
 use jsfuck::jsfuck;
 
@@ -59,6 +65,7 @@ fn main() {
     println!("{}", jsfuck("Hello, World!"));
 }
 ```
+
 </details>
 
 ### License
