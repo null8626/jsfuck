@@ -22,7 +22,7 @@ use jsfuck::token::Tokenizer;
 
 fn main() {
     let my_input = String::from("Hello!");
-    let jsfuck = Tokenizer::new(&my_input);
+    let mut jsfuck = Tokenizer::new(&my_input);
 
     // parse it and print the obfuscated output
     println!("{}", jsfuck.parse());
