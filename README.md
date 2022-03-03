@@ -17,6 +17,7 @@ make OS=WIN
 .\vcbuild.bat
 ```
 </details>
+
 <details>
 <summary>Rust library</summary>
 ```
@@ -48,6 +49,7 @@ int main(void) {
 
 Tip: You can use `NULL` for the third argument if determining output size is not necessary.
 </details>
+
 <details>
 <summary>Rust library</summary>
 ```rs
