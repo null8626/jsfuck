@@ -1,7 +1,9 @@
 # libjsfuck
-JSFuck obfuscator written in ANSI C. For more info/context, visit [www.jsfuck.com](http://www.jsfuck.com).
+JSFuck obfuscator for C/C++ and Rust. For more info/context, visit [www.jsfuck.com](http://www.jsfuck.com).
 
-### Build
+### Building
+<details>
+<summary>C/C++ library</summary>
 - GCC
 ```
 make
@@ -14,8 +16,17 @@ make OS=WIN
 ```
 .\vcbuild.bat
 ```
+</details>
+<details>
+<summary>Rust library</summary>
+```
+cargo build
+```
+</details>
 
 ### Library Usage
+<details>
+<summary>C/C++ library</summary>
 ```c
 #include <jsfuck.h>
 #include <stdlib.h>
@@ -34,8 +45,20 @@ int main(void) {
     return 0;
 }
 ```
-Pro Tip: You can use `NULL` for the third argument if determining output size is not necessary.
+
+Tip: You can use `NULL` for the third argument if determining output size is not necessary.
+</details>
+<details>
+<summary>Rust library</summary>
+```rs
+use jsfuck::jsfuck;
+
+fn main() {
+    println!("{}", jsfuck("Hello, World!"));
+}
+```
+</details>
 
 ### License
-- The C/C++ library is distributed under the [MIT License](https://opensource.org/licenses/MIT).
-- The jsfuck.h transpiler is distributed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html).
+- The C/C++ and Rust library are distributed under the [MIT License](https://opensource.org/licenses/MIT).
+- The libjsfuck transpiler is distributed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html).
