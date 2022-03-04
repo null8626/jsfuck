@@ -58,24 +58,24 @@ Tip: You can use `NULL` for the third argument if determining output size is not
 <details>
 <summary>Rust library</summary>
 
-The library only exports one single function.
-```rs
-pub fn jsfuck(input: String) -> String { /* ... */ }
-```
-
 ## Example
 
 ```rs
-use jsfuck::jsfuck;
+use jsfuck;
 
 fn main() {
-    let jsfucked = jsfuck(String::from("0"));
+    let jsfucked = jsfuck::obfuscate(String::from("0"));
     
     // evaluate this as a JavaScript code and you should get "0"
     assert_eq!("[+[]]", jsfucked);
     
-    // warning: huge string incoming!
-    println!("{}", jsfuck(String::from("Hello, World!")));
+    let mut code = jsfuck::obfuscate("console.log('Hello, World!')");
+
+    // wrap this with an eval()
+    jsfuck::wrap_eval(&mut code);
+    
+    // paste this as a JavaScript code and it should print "Hello, World!"
+    println!("{}", code);
 }
 ```
 

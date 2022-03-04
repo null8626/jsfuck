@@ -46,8 +46,7 @@ impl<'a> Tokenizer<'a> {
             output.push_str(JSFUCK_NUMS[usize::from(c - 48)]);
         }
         
-        output.pop();
-        output.push_str(")+");
+        output.insert_str(output.len() - 1, ")+");
     }
     
     fn transpile_byte(&mut self, output: &mut String, byte: u8) {
