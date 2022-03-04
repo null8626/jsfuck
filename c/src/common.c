@@ -40,7 +40,7 @@ static void jsfuck_custom(const char c, jsfuck_str_t * s) {
 }
 
 void jsfuck_get(const char c, jsfuck_str_t * s) {
-    if (c < 0x1F || c > 0x7F) {
+    if (c <= 0x1F || c >= 0x7F) {
         jsfuck_custom(c, s);
         return;
     } else if (c >= '0' && c <= '9') {

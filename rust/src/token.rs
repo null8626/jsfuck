@@ -28,7 +28,7 @@ fn append_custom_charcode(output: &mut String, c: u8) {
 }
 
 fn transpile_byte(&mut self, output: &mut String, byte: u8) {
-    if byte < 0x1f || byte > 0x7f {
+    if byte <= 0x1f || byte >= 0x7f {
         return append_custom_charcode(output, byte);
     } else if byte >= 48 && byte <= 57 {
         return output.push_str(JSFUCK_NUMS[usize::from(byte - 48)]);
