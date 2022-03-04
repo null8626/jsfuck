@@ -27,7 +27,7 @@ fn append_custom_charcode(output: &mut String, c: u8) {
     output.push_str(")+");
 }
 
-fn transpile_byte(&mut self, output: &mut String, byte: u8) {
+fn transpile_byte(output: &mut String, byte: u8) {
     if byte <= 0x1f || byte >= 0x7f {
         return append_custom_charcode(output, byte);
     } else if byte >= 48 && byte <= 57 {
@@ -127,13 +127,13 @@ fn transpile_byte(&mut self, output: &mut String, byte: u8) {
 }
 
 pub struct Tokenizer<'a> {
-    input: &'a String,
+    input: &'a str,
     input_size: usize,
     index: usize,
 }
 
 impl<'a> Tokenizer<'a> {
-    pub fn new(input: &'a String) -> Tokenizer {
+    pub fn new(input: &'a str) -> Tokenizer {
         Tokenizer {
             input: input,
             input_size: input.len(),

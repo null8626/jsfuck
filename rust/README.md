@@ -6,7 +6,7 @@ A quick and simple JSFuck obfuscator for Rust. For more info/context, visit [www
 use jsfuck;
 
 fn main() {
-    let jsfucked = jsfuck::obfuscate(String::from("0"));
+    let jsfucked = jsfuck::obfuscate("0");
     
     // evaluate this as a JavaScript code and you should get "0"
     assert_eq!("[+[]]", jsfucked);

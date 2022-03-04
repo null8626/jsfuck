@@ -64,7 +64,7 @@ Tip: You can use `NULL` for the third argument if determining output size is not
 use jsfuck;
 
 fn main() {
-    let jsfucked = jsfuck::obfuscate(String::from("0"));
+    let jsfucked = jsfuck::obfuscate("0");
     
     // evaluate this as a JavaScript code and you should get "0"
     assert_eq!("[+[]]", jsfucked);
