@@ -45,6 +45,7 @@ void jsfuck_get(const char c, jsfuck_str_t * s) {
         return;
     } else if (c >= '0' && c <= '9') {
         _jsfuck_str_append(s, jsfuck_nums[c - '0'], jsfuck_nums_len[c - '0']);
+        _jsfuck_str_append(s, "[]+", 3);
         return;
     }
     

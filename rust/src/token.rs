@@ -31,7 +31,9 @@ fn transpile_byte(output: &mut String, byte: u8) {
     if byte <= 0x1f || byte >= 0x7f {
         return append_custom_charcode(output, byte);
     } else if byte >= 48 && byte <= 57 {
-        return output.push_str(JSFUCK_NUMS[usize::from(byte - 48)]);
+        output.push_str(JSFUCK_NUMS[usize::from(byte - 48)]);
+        output.push_str("[]+");
+        return;
     }
     
     // prepare for the world's best match statement
