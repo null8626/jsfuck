@@ -19,7 +19,7 @@ const JSFUCK_EVAL_WRAP: &str = "[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!
 /// let jsfucked = jsfuck::obfuscate("0");
 /// 
 /// // evaluate this as a JavaScript code and you should get "0"
-/// assert_eq!("[+[]]", jsfucked);
+/// assert_eq!(String::from("[+[]]+[]"), jsfucked);
 /// ```
 pub fn obfuscate(input: &str) -> String {
     let mut output = String::new();
