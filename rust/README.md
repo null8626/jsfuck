@@ -2,7 +2,7 @@
 A quick and simple JSFuck obfuscator for Rust. For more info/context, visit [www.jsfuck.com](http://www.jsfuck.com).
 
 ## Example
-```rs
+```rust,no_run
 use jsfuck;
 
 fn main() {
