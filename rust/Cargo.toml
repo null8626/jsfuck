@@ -8,6 +8,7 @@ readme = "README.md"
 keywords = ["jsfuck", "obfuscator", "transpiler"]
 repository = "https://github.com/vierofernando/libjsfuck"
 homepage = "http://www.jsfuck.com"
+documentation = "https://docs.rs/jsfuck/latest/jsfuck/"
 description = "A JSFuck obfuscator written in Rust."
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
