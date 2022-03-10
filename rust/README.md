@@ -19,3 +19,4 @@ fn main() {
     // paste this as a JavaScript code and it should print "Hello, World!"
     println!("{}", code);
 }
+```

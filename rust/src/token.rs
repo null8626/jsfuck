@@ -126,14 +126,14 @@ fn transpile_byte(output: &mut String, byte: u8) {
     }
 }
 
-pub struct Tokenizer<'a> {
+pub(crate) struct Tokenizer<'a> {
     input: &'a str,
     input_size: usize,
     index: usize,
 }
 
 impl<'a> Tokenizer<'a> {
-    pub fn new(input: &'a str) -> Tokenizer {
+    pub(crate) fn new(input: &'a str) -> Tokenizer {
         Tokenizer {
             input: input,
             input_size: input.len(),
@@ -149,7 +149,7 @@ impl<'a> Tokenizer<'a> {
         &self.input[self.index..] == token
     }
     
-    pub fn parse(&mut self, output: &mut String) {
+    pub(crate) fn parse(&mut self, output: &mut String) {
         let input_bytes = self.input.as_bytes();
         
         loop {
