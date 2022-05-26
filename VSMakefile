@@ -1,0 +1,37 @@
+EXTRA_CFLAGS=
+EXTRA_LFLAGS=
+
+CFLAGS=/O2 /MD /nologo /I include /D JSFUCK_SOURCE $(EXTRA_CFLAGS)
+LFLAGS=/NOEXP /NOLOGO /MACHINE:x64 $(EXTRA_LFLAGS)
+
+!if "$(SHARED)" == "yes"
+LIB_FILES=jsfuck.lib jsfuck.dll
+TRANSPILER_LIB=jsfuck.lib
+CFLAGS=$(CFLAGS) /D JSFUCK_DLL
+!else
+LIB_FILES=jsfuck_s.lib
+TRANSPILER_LIB=$(LIB_FILES)
+!endif
+
+jsfuck.exe: $(LIB_FILES)
+	rc.exe /nologo /n /d JSFUCK_TRANSPILER /fo jsfuck_transpiler.res jsfuck.rc
+	cl.exe $(CFLAGS) /Fejsfuck.exe src/transpiler/transpiler.c src/transpiler/io.c $(TRANSPILER_LIB) jsfuck_transpiler.res /link $(LFLAGS)
+
+jsfuck.lib jsfuck.dll:
+	rc.exe /nologo /n /fo jsfuck_dll.res jsfuck.rc
+	cl.exe /LD $(CFLAGS) /Fe"jsfuck.dll" src/jsfuck.c src/stream.c src/token.c src/common.c jsfuck_dll.res /link $(LFLAGS)
+
+jsfuck_s.lib: jsfuck.obj stream.obj token.obj common.obj
+	lib.exe $(LFLAGS) /OUT:jsfuck_s.lib $?
+
+jsfuck.obj: src/jsfuck.c
+	cl.exe $(CFLAGS) /c %s
+
+stream.obj: src/stream.c
+	cl.exe $(CFLAGS) /c %s
+
+token.obj: src/token.c
+	cl.exe $(CFLAGS) /c %s
+
+common.obj: src/common.c
+	cl.exe $(CFLAGS) /c %s

@@ -3,5 +3,8 @@
 **/*.a
 **/*.lib
 **/*.obj
-rust/target/
-rust/Cargo.lock
+**/*.dll
+**/*.so
+**/*.exp
+**/*.res
+**/*.def

@@ -1,0 +1,41 @@
+CC=gcc
+
+EXTRA_CFLAGS=
+CFLAGS=-O3 -Wall -m64 -I include
+
+ifeq ($(CC),clang)
+AR=llvm-ar
+AR_FLAG=rcs
+else
+AR=libtool
+AR_FLAG=-static
+endif
+
+ifeq ($(SHARED),yes)
+LIB=libjsfuck.dylib
+_EXTRA_LIB_CFLAGS=$(LIB)
+else
+LIB=libjsfuck.a
+_EXTRA_LIB_CFLAGS=-L. -ljsfuck
+endif
+
+jsfuck: $(LIB) src/transpiler/transpiler.c src/transpiler/io.c
+	$(CC) $(CFLAGS) src/transpiler/transpiler.c src/transpiler/io.c -o jsfuck $(_EXTRA_LIB_CFLAGS)
+
+libjsfuck.dylib: jsfuck.o stream.o token.o common.o
+	$(CC) -dynamiclib -undefined suppress -flat_namespace $^ -o libjsfuck.dylib
+
+libjsfuck.a: jsfuck.o stream.o token.o common.o
+	$(AR) $(AR_FLAG) -o $@ $^
+
+jsfuck.o: src/jsfuck.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+stream.o: src/stream.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+token.o: src/token.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+common.o: src/common.c
+	$(CC) $(CFLAGS) -c $< -o $@

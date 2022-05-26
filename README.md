@@ -1,37 +1,9 @@
 # libjsfuck
-JSFuck obfuscator for C/C++ and Rust. For more info/context, visit [www.jsfuck.com](http://www.jsfuck.com).
-
-### Building
-<details>
-<summary>C/C++ library</summary>
-
-- GCC
-```
-make
-```
-- MinGW
-```
-make OS=WIN
-```
-- MSVC
-```
-.\vcbuild.bat
-```
-
-</details>
-
-<details>
-<summary>Rust library</summary>
-
-```
-cargo build
-```
-
-</details>
+JSFuck C/C++ obfuscator and transpiler. For more info/context, visit [www.jsfuck.com](http://www.jsfuck.com).
 
 ### Library Usage
-<details>
-<summary>C/C++ library</summary>
+
+Returning a `malloc`ed null-terminated string:
 
 ```c
 #include <jsfuck.h>
@@ -39,48 +11,109 @@ cargo build
 #include <stdio.h>
 
 int main(void) {
-    uint64_t output_size;
+  char code[] = "console.log('Hello, World!');";
 
-    char code[] = "hello";
-    char * output = jsfuck(code, 5, &output_size);
-    
-    printf("length of output string: %lld\n", output_size);
-    printf("%s\n", output);
-    free(output);
-    
-    return 0;
+  jsfuck_t jsf;
+  
+  jsf.input.value = code;
+  jsf.input.length = 29;
+  jsf.flags = JSFUCK_MALLOC_STRING | JSFUCK_NULL_TERMINATE | JSFUCK_WRAP_EVAL;
+
+  jsfuck(&jsf);
+  
+  printf("length of output string: %lld\n", jsf.output.str.length);
+  printf("%s\n", jsf.output.str.value);
+
+  free(jsf.output.str.value); // you are responsible for free-ing it! remember!
+  
+  return 0;
 }
 ```
 
-Tip: You can use `NULL` for the third argument if determining output size is not necessary.
-</details>
+Or, if you are not a fan of `malloc` for some reason:
 
-<details>
-<summary>Rust library</summary>
+```c
+#include <jsfuck.h>
+#include <stdlib.h>
+#include <stdio.h>
 
-## Example
+int main(void) {
+  char code[] = "console.log('Hello, World!');";
 
-```rs
-use jsfuck;
+  // warning: output strings tend to be HUGE!
+  char output[50000];
 
-fn main() {
-    let jsfucked = jsfuck::obfuscate("0");
-    
-    // evaluate this as a JavaScript code and you should get "0"
-    assert_eq!(String::from("[+[]]+[]"), jsfucked);
-    
-    let mut code = jsfuck::obfuscate("console.log('Hello, World!')");
+  jsfuck_t jsf;
+  
+  jsf.input.value = code;
+  jsf.input.length = 29;
+  jsf.output.value = output;
+  jsf.output.capacity = 50000;
+  jsf.flags = JSFUCK_STATIC_STRING | JSFUCK_NULL_TERMINATE | JSFUCK_WRAP_EVAL;
 
-    // wrap this with an eval()
-    jsfuck::wrap_eval(&mut code);
-    
-    // paste this as a JavaScript code and it should print "Hello, World!"
-    println!("{}", code);
+  jsfuck(&jsf);
+  
+  printf("amount of bytes copied to output: %lld\n", jsf.output.str.length);
+  printf("%s\n", jsf.output.str.value);
+
+  return 0;
 }
 ```
 
-</details>
+Writing to a file:
 
-### License
-- The C/C++ and Rust library are distributed under the [MIT License](https://opensource.org/licenses/MIT).
-- The libjsfuck transpiler is distributed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html).
+```c
+#include <jsfuck.h>
+#include <stdio.h>
+
+int main(void) {
+  char code[] = "console.log('Hello, World!');";
+
+  FILE * file = fopen("gibberish.js", "w");
+  if (file == NULL) {
+    return 1;
+  }
+
+  jsfuck_t jsf;
+  
+  jsf.input.value = code;
+  jsf.input.length = 29;
+  jsf.output.stream = file;
+  jsf.flags = JSFUCK_FILE_STREAM | JSFUCK_WRAP_EVAL;
+
+  jsfuck(&jsf);
+
+  fclose(file);
+  return 0;
+}
+```
+
+### Building locally
+
+- Linux
+```
+make [...]
+```
+- macOS
+```
+make -f Macfile [...]
+```
+- Windows (GCC)
+```
+make WIN=yes [...]
+```
+- Windows (MSVC)
+```
+nmake /nologo /f VSMakefile [...]
+```
+- Windows (Clang)
+```
+nmake /nologo /f VSClangMakefile [...]
+```
+
+#### Additional optional arguments
+
+| Format name | Description | Possible values |
+|----|----|----|
+| `CC` | The compiler used. `VSMakefile` and `VSClangMakefile` ignores this. | `gcc` (default), `clang` |
+| `SHARED` | Whether to produce a shared/dynamic library. | `no` (default), `yes` |
