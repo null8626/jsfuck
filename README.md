@@ -56,8 +56,8 @@ int main(void) {
   
   jsf.input.value = code;
   jsf.input.length = 29;
-  jsf.output.value = output;
-  jsf.output.capacity = 50000;
+  jsf.output.str.value = output;
+  jsf.output.str.capacity = 50000;
   jsf.flags = JSFUCK_STATIC_STRING | JSFUCK_NULL_TERMINATE | JSFUCK_WRAP_EVAL;
 
   jsfuck(&jsf);
