@@ -5,10 +5,10 @@ JSFuck C/C++ obfuscator and transpiler. For more info/context, visit [www.jsfuck
 
 Prebuilt (64-bit) binaries are available.
 
-- [Windows (MSVC)](https://github.com/vierofernando/libjsfuck/releases/download/v1.0.0/libjsfuck-windows-msvc.zip)
-- [Windows (MinGW)](https://github.com/vierofernando/libjsfuck/releases/download/v1.0.0/libjsfuck-windows-mingw.zip)
-- [macOS](https://github.com/vierofernando/libjsfuck/releases/download/v1.0.0/libjsfuck-macos.zip)
-- [Linux](https://github.com/vierofernando/libjsfuck/releases/download/v1.0.0/libjsfuck-linux.zip)
+- [Windows (MSVC)](https://github.com/null8626/libjsfuck/releases/download/v1.0.0/libjsfuck-windows-msvc.zip)
+- [Windows (MinGW)](https://github.com/null8626/libjsfuck/releases/download/v1.0.0/libjsfuck-windows-mingw.zip)
+- [macOS](https://github.com/null8626/libjsfuck/releases/download/v1.0.0/libjsfuck-macos.zip)
+- [Linux](https://github.com/null8626/libjsfuck/releases/download/v1.0.0/libjsfuck-linux.zip)
 
 ### Library Usage
 

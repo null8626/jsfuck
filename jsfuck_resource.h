@@ -5,7 +5,7 @@
 #define JSFUCK_VERSION "v1.0"
 #define JSFUCK_VERSION_RAW 1, 0, 0, 0
 
-#define JSFUCK_AUTHOR "null (https://github.com/vierofernando)"
+#define JSFUCK_AUTHOR "null (https://github.com/null8626)"
 #define JSFUCK_INTERNAL_NAME "jsfuck"
 
 #ifdef JSFUCK_TRANSPILER
