@@ -5,93 +5,84 @@ on:
   release:
     types: [published]
 jobs:
-  build-msvc:
-    name: Build for MSVC
+  build-windows:
+    name: Build for Windows
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
       - uses: ilammy/msvc-dev-cmd@v1
         with:
           arch: x64
-      - name: Compile (static library)
+      - name: CMake
         run: |
-           nmake /nologo /f VSMakefile
-      - name: Compile (shared library)
+          cmake -B build .
+          cmake build
+      - name: Build
         run: |
-          del *.obj
-          nmake /nologo /f VSMakefile SHARED=yes
+          cd build
+          msbuild jsfuck.sln -noLogo -p:Configuration=Release
+          move .\Release\*.lib ..
+          move .\Release\*.dll ..
+          move .\Release\*.exe ..
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: libjsfuck-windows-msvc
+          name: jsfuck-windows
           path: |
             *.exe
             *.lib
             *.dll
-  build-mingw:
-    name: Build for MinGW
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Compile (shared library)
-        run: |
-          make WIN=yes SHARED=yes
-      - name: Compile (static library)
-        run: |
-          del *.o
-          make WIN=yes
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: libjsfuck-windows-mingw
-          path: |
-            *.a
-            *.so
-            *.exe
   build-macos:
     name: Build for macOS 
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Compile (shared library)
+      - name: CMake
         run: |
-          make -f Macfile SHARED=yes
-      - name: Compile (static library)
+          cmake -B build .
+          cmake build
+      - name: Build
         run: |
-          rm *.o
-          make -f Macfile
+          cd build
+          make
+          mv *.a ..
+          mv *.dylib ..
+          mv jsfuck ..
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: libjsfuck-macos
+          name: jsfuck-macos
           path: |
+            jsfuck
             *.a
             *.dylib
-            jsfuck
   build-linux:
     name: Build for Linux
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Compile (shared library)
+      - name: CMake
         run: |
-          make SHARED=yes
-      - name: Compile (static library)
+          cmake -B build .
+          cmake build
+      - name: Build
         run: |
-          rm *.o
+          cd build
           make
+          mv *.a ..
+          mv *.so ..
+          mv jsfuck ..
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: libjsfuck-linux
+          name: jsfuck-linux
           path: |
             *.a
             *.so
             jsfuck
   publish:
     needs:
-      - build-mingw
-      - build-msvc
+      - build-windows
       - build-macos
       - build-linux
     name: Publish
@@ -109,32 +100,23 @@ jobs:
           cd artifacts
           for i in */; do zip -0 -r "${i%/}.zip" "$i" & done; wait
           mv *.zip ..
-      - name: Upload Windows MSVC artifact
+      - name: Upload Windows artifact
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./libjsfuck-windows-msvc.zip
-          asset_name: libjsfuck-windows-msvc.zip
-          asset_content_type: application/zip
-      - name: Upload Windows MinGW artifact
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./libjsfuck-windows-mingw.zip
-          asset_name: libjsfuck-windows-mingw.zip
+          asset_path: ./jsfuck-windows.zip
+          asset_name: jsfuck-windows.zip
           asset_content_type: application/zip
       - name: Upload macOS artifact
-        uses: actions/upload-release-asset@v1
+        uses: actions/upload-asset@v1
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./libjsfuck-macos.zip
-          asset_name: libjsfuck-macos.zip
+          asset_path: ./jsfuck-macos.zip
+          asset_name: jsfuck-macos.zip
           asset_content_type: application/zip
       - name: Upload Linux artifact
         uses: actions/upload-release-asset@v1
@@ -142,6 +124,15 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./libjsfuck-linux.zip
-          asset_name: libjsfuck-linux.zip
+          asset_path: ./jsfuck-linux.zip
+          asset_name: jsfuck-linux.zip
           asset_content_type: application/zip
+      - name: Upload include file
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./include/jsfuck.h
+          asset_name: jsfuck.h
+          asset_content_type: text/plain

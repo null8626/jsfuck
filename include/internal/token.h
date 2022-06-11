@@ -8,16 +8,18 @@
 #include "../jsfuck.h"
 #include "stream.h"
 
-typedef struct {
-  jsfuck_t * jsfuck;
-  uint64_t index;
+typedef struct
+{
+    jsfuck_t *jsfuck;
+    uint64_t index;
 } jsfuck_tokenizer_t;
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
-void jsfuck_token_parse(jsfuck_tokenizer_t * tokenizer);
+    void jsfuck_token_parse(jsfuck_tokenizer_t *tokenizer);
 
 #ifdef __cplusplus
 }

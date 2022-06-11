@@ -9,10 +9,11 @@
 #include "token.h"
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
-void jsfuck_get(const char c, jsfuck_t * s);
+    void jsfuck_get(const char c, jsfuck_t *s);
 
 #ifdef __cplusplus
 }

@@ -6,7 +6,8 @@
 #include <stdio.h>
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
 #ifdef JSFUCK_DLL
@@ -19,34 +20,37 @@ extern "C" {
 #define JSFUCK_EXPORT
 #endif
 
-#define JSFUCK_STATIC_STRING    1
-#define JSFUCK_MALLOC_STRING    2
-#define JSFUCK_FILE_STREAM      4
-#define JSFUCK_FILE_DESCRIPTOR  8
-#define JSFUCK_NULL_TERMINATE   16
-#define JSFUCK_WRAP_EVAL        32
+#define JSFUCK_STATIC_STRING 1
+#define JSFUCK_MALLOC_STRING 2
+#define JSFUCK_FILE_STREAM 4
+#define JSFUCK_FILE_DESCRIPTOR 8
+#define JSFUCK_NULL_TERMINATE 16
+#define JSFUCK_WRAP_EVAL 32
 
-typedef unsigned char jsfuck_flags_t;
+    typedef unsigned char jsfuck_flags_t;
 
-typedef struct {
-  struct {
-    char * value;
-    uint64_t length;
-  } input;
-  union {
-    struct {
-      char * value;
-      uint64_t length;
-      uint64_t capacity;
-    } str;
-    FILE * stream;
-    int fd;
-  } output;
-  jsfuck_flags_t flags;
-} jsfuck_t;
+    typedef struct
+    {
+        struct
+        {
+            char *value;
+            uint64_t length;
+        } input;
+        union {
+            struct
+            {
+                char *value;
+                uint64_t length;
+                uint64_t capacity;
+            } str;
+            FILE *stream;
+            int fd;
+        } output;
+        jsfuck_flags_t flags;
+    } jsfuck_t;
 
 #ifndef _JSFUCK_INTERNAL
-JSFUCK_EXPORT void jsfuck(jsfuck_t * data);
+    JSFUCK_EXPORT void jsfuck(jsfuck_t *data);
 #endif
 
 #ifdef __cplusplus

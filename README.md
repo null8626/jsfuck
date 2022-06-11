@@ -1,15 +1,6 @@
 # libjsfuck
 JSFuck C/C++ obfuscator and transpiler. For more info/context, visit [www.jsfuck.com](http://www.jsfuck.com).
 
-### Download
-
-Prebuilt (64-bit) binaries are available.
-
-- [Windows (MSVC)](https://github.com/null8626/libjsfuck/releases/download/v1.0.0/libjsfuck-windows-msvc.zip)
-- [Windows (MinGW)](https://github.com/null8626/libjsfuck/releases/download/v1.0.0/libjsfuck-windows-mingw.zip)
-- [macOS](https://github.com/null8626/libjsfuck/releases/download/v1.0.0/libjsfuck-macos.zip)
-- [Linux](https://github.com/null8626/libjsfuck/releases/download/v1.0.0/libjsfuck-linux.zip)
-
 ### Library Usage
 
 Returning a `malloc`ed null-terminated string:
@@ -97,32 +88,36 @@ int main(void) {
 }
 ```
 
-### Building locally
+### Download
 
-- Linux
-```
-make [...]
-```
-- macOS
-```
-make -f Macfile [...]
-```
-- Windows (GCC)
-```
-make WIN=yes [...]
-```
-- Windows (MSVC)
-```
-nmake /nologo /f VSMakefile [...]
-```
-- Windows (Clang)
-```
-nmake /nologo /f VSClangMakefile [...]
+Prebuilt (64-bit) binaries are available.
+
+- [Windows](https://github.com/null8626/jsfuck/releases/download/v1.1.0/jsfuck-windows.zip)
+- [macOS](https://github.com/null8626/jsfuck/releases/download/v1.1.0/jsfuck-macos.zip)
+- [Linux](https://github.com/null8626/jsfuck/releases/download/v1.1.0/jsfuck-linux.zip)
+
+### Building with CMake
+
+To create the build files:
+
+```console
+cmake -B build .
+cmake build
 ```
 
-#### Additional optional arguments
+And then:
 
-| Format name | Description | Possible values |
-|----|----|----|
-| `CC` | The compiler used. `VSMakefile` and `VSClangMakefile` ignores this. | `gcc` (default), `clang` |
-| `SHARED` | Whether to produce a shared/dynamic library. | `no` (default), `yes` |
+- For POSIX:
+
+```console
+cd build
+make
+```
+
+- For Windows:
+
+```console
+msbuild build/jsfuck.sln -noLogo -p:Configuration=Release
+```
+
+And the library files should be there in the `build/Release` directory.

@@ -4,17 +4,19 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-typedef struct {
-  uint64_t file_size;
-  char * contents;
+typedef struct
+{
+    uint64_t file_size;
+    char *contents;
 } file_contents_t;
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
-void free_file(file_contents_t * f);
-bool read_file(const char * filename, file_contents_t * f);
+    void free_file(file_contents_t *f);
+    bool read_file(const char *filename, file_contents_t *f);
 
 #ifdef __cplusplus
 }

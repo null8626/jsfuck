@@ -8,11 +8,12 @@
 #define jsfuck_stream_push(jsf, string) _jsfuck_stream_push(jsf, string, sizeof(string) - 1)
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
-void _jsfuck_stream_push(jsfuck_t * data, char * str, const uint64_t size);
-void jsfuck_stream_finalize(jsfuck_t * ptr);
+    void _jsfuck_stream_push(jsfuck_t *data, char *str, const uint64_t size);
+    void jsfuck_stream_finalize(jsfuck_t *ptr);
 
 #ifdef __cplusplus
 }
