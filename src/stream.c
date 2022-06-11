@@ -6,7 +6,6 @@
 #include <unistd.h>
 #endif
 
-#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -15,7 +14,50 @@
 #define JSFUCK_PADDING 0x1000
 #endif
 
-void _jsfuck_stream_push(jsfuck_t *data, char *str, const uint64_t length)
+typedef union {
+    float f;
+    unsigned int i;
+} jsfuck_float_t;
+
+static size_t _jsfuck_ceilf(float x)
+{
+    jsfuck_float_t f;
+    f.f = x;
+
+    unsigned int exponent = ((f.i & 0x7fffffff) >> 23) - 127;
+    unsigned int mantissa = f.i & 0x7fffff;
+
+    if (exponent < 0)
+    {
+        return x > 0.0f;
+    }
+    else
+    {
+        const unsigned int mask = 0x7fffff >> exponent;
+
+        if ((mantissa & mask) == 0)
+        {
+            return (size_t)x;
+        }
+        else
+        {
+            mantissa += 1 << (23 - exponent);
+
+            if (mantissa & 0x800000)
+            {
+                mantissa = 0;
+            }
+
+            mantissa &= ~mask;
+        }
+    }
+
+    f.i = 0x80000000 | ((exponent + 127) << 23) | mantissa;
+
+    return (size_t)f.f;
+}
+
+void _jsfuck_stream_push(jsfuck_t *data, char *str, const size_t length)
 {
     if (data->flags & JSFUCK_STATIC_STRING)
     {
@@ -33,7 +75,7 @@ void _jsfuck_stream_push(jsfuck_t *data, char *str, const uint64_t length)
         if (data->output.str.capacity <= data->output.str.length)
         {
             data->output.str.capacity =
-                JSFUCK_PADDING * (uint64_t)ceilf((float)(data->output.str.capacity) / (float)(JSFUCK_PADDING));
+                JSFUCK_PADDING * _jsfuck_ceilf((float)(data->output.str.capacity) / (float)(JSFUCK_PADDING));
             data->output.str.value = (char *)realloc(data->output.str.value, data->output.str.capacity);
         }
 

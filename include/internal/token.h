@@ -11,7 +11,7 @@
 typedef struct
 {
     jsfuck_t *jsfuck;
-    uint64_t index;
+    size_t index;
 } jsfuck_tokenizer_t;
 
 #ifdef __cplusplus

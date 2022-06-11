@@ -28,7 +28,7 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    printf(" read %lld bytes.\ntranspiling...", f.file_size);
+    printf(" read %ld bytes.\ntranspiling...", f.file_size);
 
     char o_fn[455];
     o_fn[sprintf(o_fn, "jsfucked-%s", argv[1])] = 0;

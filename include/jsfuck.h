@@ -34,14 +34,14 @@ extern "C"
         struct
         {
             char *value;
-            uint64_t length;
+            size_t length;
         } input;
         union {
             struct
             {
                 char *value;
-                uint64_t length;
-                uint64_t capacity;
+                size_t length;
+                size_t capacity;
             } str;
             FILE *stream;
             int fd;

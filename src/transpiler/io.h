@@ -2,11 +2,11 @@
 #define JSFUCK_C_IO_H
 
 #include <stdbool.h>
-#include <stdint.h>
+#include <stddef.h>
 
 typedef struct
 {
-    uint64_t file_size;
+    size_t file_size;
     char *contents;
 } file_contents_t;
 

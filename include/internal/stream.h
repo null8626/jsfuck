@@ -12,7 +12,7 @@ extern "C"
 {
 #endif
 
-    void _jsfuck_stream_push(jsfuck_t *data, char *str, const uint64_t size);
+    void _jsfuck_stream_push(jsfuck_t *data, char *str, const size_t size);
     void jsfuck_stream_finalize(jsfuck_t *ptr);
 
 #ifdef __cplusplus

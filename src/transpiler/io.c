@@ -18,7 +18,7 @@ bool read_file(const char *filename, file_contents_t *f)
     f->file_size = 0;
     fseek(fp, 0, SEEK_END);
 
-    f->file_size = (uint64_t)ftell(fp);
+    f->file_size = (size_t)ftell(fp);
     fseek(fp, 0, SEEK_SET);
 
     f->contents = malloc(f->file_size);

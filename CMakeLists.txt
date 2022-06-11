@@ -35,8 +35,4 @@ set_target_properties(${JSFUCK_NAME} ${JSFUCK_NAME}_static ${JSFUCK_NAME}_transp
   MSVC_RUNTIME_LIBRARY  MultiThreadedDLL
 )
 
-if(UNIX)
-target_link_libraries(${JSFUCK_NAME}_transpiler PRIVATE m)
-endif()
-
-target_link_libraries(${JSFUCK_NAME}_transpiler PRIVATE ${JSFUCK_NAME}_static)
+target_link_libraries("${JSFUCK_NAME}_transpiler" ${JSFUCK_NAME}_static)
