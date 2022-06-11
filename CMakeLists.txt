@@ -36,7 +36,7 @@ set_target_properties(${JSFUCK_NAME} ${JSFUCK_NAME}_static ${JSFUCK_NAME}_transp
 )
 
 if(UNIX)
-target_link_libraries(${JSFUCK_NAME}_transpiler m)
+target_link_libraries(${JSFUCK_NAME}_transpiler PRIVATE m)
 endif()
 
 target_link_libraries(${JSFUCK_NAME}_transpiler PRIVATE ${JSFUCK_NAME}_static)
