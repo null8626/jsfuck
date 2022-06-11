@@ -1,4 +1,4 @@
-# libjsfuck
+# jsfuck
 JSFuck C/C++ obfuscator and transpiler. For more info/context, visit [www.jsfuck.com](http://www.jsfuck.com).
 
 ### Library Usage
