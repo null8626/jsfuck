@@ -110,7 +110,7 @@ jobs:
           asset_name: jsfuck-windows.zip
           asset_content_type: application/zip
       - name: Upload macOS artifact
-        uses: actions/upload-asset@v1
+        uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
