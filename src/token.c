@@ -36,20 +36,25 @@ void jsfuck_token_parse(jsfuck_tokenizer_t *tokenizer)
 {
 jsfuck_token_parse_loop:
     if (token_parse(tokenizer, "NaN"))
+    {
         jsfuck_stream_push(tokenizer->jsfuck, JSFUCK_NAN);
-
+    }
     else if (token_parse(tokenizer, "true"))
+    {
         jsfuck_stream_push(tokenizer->jsfuck, JSFUCK_TRUE);
-
+    }
     else if (token_parse(tokenizer, "false"))
+    {
         jsfuck_stream_push(tokenizer->jsfuck, JSFUCK_FALSE);
-
+    }
     else if (token_parse(tokenizer, "Infinity"))
+    {
         jsfuck_stream_push(tokenizer->jsfuck, JSFUCK_INFINITY);
-
+    }
     else if (token_parse(tokenizer, "undefined"))
+    {
         jsfuck_stream_push(tokenizer->jsfuck, JSFUCK_UNDEFINED);
-
+    }
     else
     {
         jsfuck_get(tokenizer->jsfuck->input.value[tokenizer->index], tokenizer->jsfuck);

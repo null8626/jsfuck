@@ -14,12 +14,16 @@
 #define JSFUCK_PADDING 0x1000
 #endif
 
+#if defined(_WIN32) || defined(__APPLE__)
+#include <math.h>
+#define jsfuck_ceilf(x) (size_t) ceilf(x)
+#else
 typedef union {
     float f;
     unsigned int i;
 } jsfuck_float_t;
 
-static size_t _jsfuck_ceilf(float x)
+static size_t jsfuck_ceilf(float x)
 {
     jsfuck_float_t f;
     f.f = x;
@@ -56,26 +60,23 @@ static size_t _jsfuck_ceilf(float x)
 
     return (size_t)f.f;
 }
+#endif
 
 void _jsfuck_stream_push(jsfuck_t *data, char *str, const size_t length)
 {
-    if (data->flags & JSFUCK_STATIC_STRING)
-    {
-        data->output.str.length += length;
+    data->output.str.length += length;
 
-        if (data->output.str.capacity > data->output.str.length)
-        {
-            memcpy(data->output.str.value + data->output.str.length - length, str, length);
-        }
+    if (data->flags & JSFUCK_STATIC_STRING && data->output.str.value != NULL &&
+        data->output.str.capacity > data->output.str.length)
+    {
+        memcpy(data->output.str.value + data->output.str.length - length, str, length);
     }
-    else if (data->flags & JSFUCK_MALLOC_STRING)
+    else if (data->flags & JSFUCK_MALLOC_STRING && data->output.str.value != NULL)
     {
-        data->output.str.length += length;
-
         if (data->output.str.capacity <= data->output.str.length)
         {
             data->output.str.capacity =
-                JSFUCK_PADDING * _jsfuck_ceilf((float)(data->output.str.capacity) / (float)(JSFUCK_PADDING));
+                JSFUCK_PADDING * jsfuck_ceilf((float)(data->output.str.capacity) / (float)(JSFUCK_PADDING));
             data->output.str.value = (char *)realloc(data->output.str.value, data->output.str.capacity);
         }
 
@@ -96,6 +97,11 @@ void _jsfuck_stream_push(jsfuck_t *data, char *str, const size_t length)
 
 void jsfuck_stream_finalize(jsfuck_t *ptr)
 {
+    if (ptr->output.str.value == NULL)
+    {
+        return;
+    }
+
     if (ptr->flags & JSFUCK_MALLOC_STRING)
     {
         ptr->output.str.value =
