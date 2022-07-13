@@ -2,6 +2,10 @@
 #include <jsfuck.h>
 #include <stdlib.h>
 
+#ifndef JSFUCK_PADDING
+#define JSFUCK_PADDING 0x1000
+#endif
+
 #define JSFUCK_EVAL_HEADER                                                                                             \
     "[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]][([][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]" \
     "]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(" \
@@ -18,6 +22,12 @@ JSFUCK_EXPORT void jsfuck(jsfuck_t *jsf)
 
     if (jsf->flags & JSFUCK_STATIC_STRING || jsf->flags & JSFUCK_MALLOC_STRING)
     {
+        if (jsf->flags & JSFUCK_MALLOC_STRING)
+        {
+            jsf->output.str.value = (char *)malloc(JSFUCK_PADDING);
+            jsf->output.str.capacity = JSFUCK_PADDING;
+        }
+
         jsf->output.str.length = 0;
     }
 
