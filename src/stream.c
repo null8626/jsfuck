@@ -71,12 +71,12 @@ void _jsfuck_stream_push(jsfuck_t *data, char *str, const size_t length)
     {
         memcpy(data->output.str.value + data->output.str.length - length, str, length);
     }
-    else if (data->flags & JSFUCK_MALLOC_STRING && data->output.str.value != NULL)
+    else if (data->flags & JSFUCK_MALLOC_STRING)
     {
         if (data->output.str.capacity <= data->output.str.length)
         {
             data->output.str.capacity =
-                JSFUCK_PADDING * jsfuck_ceilf((float)(data->output.str.capacity) / (float)(JSFUCK_PADDING));
+                JSFUCK_PADDING * jsfuck_ceilf((float)(data->output.str.length) / (float)(JSFUCK_PADDING));
             data->output.str.value = (char *)realloc(data->output.str.value, data->output.str.capacity);
         }
 

@@ -19,7 +19,6 @@
 JSFUCK_EXPORT void jsfuck(jsfuck_t *jsf)
 {
     jsfuck_tokenizer_t tokenizer = {jsf, 0};
-
     if (jsf->flags & JSFUCK_STATIC_STRING || jsf->flags & JSFUCK_MALLOC_STRING)
     {
         if (jsf->flags & JSFUCK_MALLOC_STRING)
